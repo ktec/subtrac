@@ -1,0 +1,44 @@
+<virtualhost *>
+
+	ServerAdmin webmaster@localhost
+	ServerName <%= server_hostname %>
+	DocumentRoot <%= docs_dir %>
+	ErrorLog <%= log_dir %>/error.<%= server_hostname %>.log
+	CustomLog <%= log_dir %>/access.<%= server_hostname %>.log combined
+	LogLevel error
+
+	RewriteEngine On
+	RewriteRule ^/$ http://<%= server_hostname %>/<%= default_client.downcase %>/<%= default_project.downcase %>
+	RewriteRule ^/index*$ http://<%= server_hostname %>/<%= default_client.downcase %>/<%= default_project.downcase %>
+
+	<location />
+
+		AuthType Basic
+		AuthName '<%= server_name %>'
+		AuthUserFile <%= auth_dir %>/htpasswds
+		Require valid-user
+		AuthBasicProvider file
+
+		<% if enable_ldap then %>
+		#AuthBasicProvider file ldap
+		#AuthLDAPBindDN '<%= ldap_bind_dn %>'
+		#AuthLDAPBindPassword '<%= ldap_bind_password %>'
+		#AuthLDAPURL '<%= ldap_url %>'
+		#AuthzLDAPAuthoritative off
+		<% end %>
+
+	</location>
+
+	<location <%= svn_url %>>
+
+		DAV svn
+		SVNParentPath <%= svn_dir %>/
+		SVNListParentPath On
+		SVNAutoversioning On
+		SVNReposName '<%= server_name %>'
+
+	</location>
+
+	Include <%= apache_dir %>/*.conf
+
+</virtualhost>

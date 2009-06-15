@@ -1,0 +1,68 @@
+development: &non_production_settings
+# Things that can be changed
+    :admin_user: "admin"
+    :server_name: "Subtrac Development Server"
+    :server_hostname: "dev.subtrac.com"
+
+    :urls:
+        :svn: "/svn"
+
+    :installation_dir: /var/subtrac
+
+    :default_client: "Subtrac"
+    :default_project: "Public"
+
+    :apache_conf_dir: /etc/apache2/sites-available
+    
+    :ldap:
+        :enable: false
+        :host: 
+        :port: 
+        :basedn: 
+        :user_rdn: 
+        :group_rdn: 
+        :store_bind: 
+        :group_bind: 
+        :bind_dn: 
+        :bind_passwd: 
+
+    :smtp:
+        :enable: true
+        :always_bcc: 
+        :always_cc:
+        :default_domain:
+        :from: trac@dev.saintdigital.co.uk
+        :from_name: Saint Development Server
+        :password:
+        :port: 25
+        :replyto: trac@dev.saintdigital.co.uk
+        :server: emea-hub.yr.com
+        :subject_prefix: __default__
+        :user:
+
+
+
+    :trac:
+        :permissions:
+            admins: TRAC_ADMIN
+            clients: WIKI_VIEW TICKET_CREATE TICKET_APPEND
+            developers: BROWSER_VIEW LOG_VIEW FILE_VIEW CHANGESET_VIEW TICKET_VIEW TICKET_CREATE TICKET_APPEND MILESTONE_VIEW MILESTONE_CREATE MILESTONE_MODIFY ROADMAP_VIEW REPORT_VIEW REPORT_SQL_VIEW`BROWSER_VIEW LOG_VIEW FILE_VIEW CHANGESET_VIEW TICKET_VIEW TICKET_CREATE TICKET_APPEND MILESTONE_VIEW MILESTONE_CREATE MILESTONE_MODIFY ROADMAP_VIEW REPORT_VIEW REPORT_SQL_VIEW
+            client: clients
+
+# Internal config
+    :dirs:
+        :svn: svn
+        :trac: trac
+        :log: log
+        :docs: www
+        :apache: apache
+        :tmp: tmp
+        :auth: apache/.auth
+
+test:
+    <<: *non_production_settings
+    
+production:
+    <<: *non_production_settings
+    
+    

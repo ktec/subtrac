@@ -1,0 +1,44 @@
+# -*- coding: utf-8 -*-
+
+[inherit]
+file = ../../../.shared/trac.ini
+
+[project]
+name = <%= project.display_name %>
+admin = 
+admin_trac_url = .
+descr = <%= project.display_name %>
+footer = Visit the Trac open source project at<br /><a href="http://trac.edgewall.org/">http://trac.edgewall.org/</a>
+icon = /favicon.ico
+url = 
+
+[header_logo]
+alt = 
+height = -1
+link = 
+src = 
+width = -1
+
+[trac]
+repository_dir = ../../../svn/<%= client.path %>/<%= project.path %>
+
+<% if enable_ldap then %>
+[ldap]
+enable = enable_ldap %>
+host = <%= ldap_host %>
+port = <%= ldap_port %>
+basedn = <%= ldap_basedn %>
+user_rdn = <%= ldap_user_rdn %>
+group_rdn = <%= ldap_group_rdn %>
+store_bind = <%= ldap_store_bind %>
+group_bind = <%= ldap_group_bind %>
+bind_user = <%= ldap_bind_user %>
+bind_passwd = <%= ldap_bind_passwd %>
+<% end %>
+
+[components]
+crystalxtheme.theme.crystalxtheme = enabled
+
+[theme]
+theme = CrystalX
+

@@ -1,0 +1,60 @@
+[[PageOutline]]
+= Welcome to the <%= server_name %> for <%= project.display_name %> =
+
+This is the home of development for <%= client.display_name %>. This page is editable by design. That means YOU. If something is missing, fix it. This is what you make of it so get involved.
+
+== Starting Points ==
+
+ * [<%= svn_url %>/<%= client.path %> Browse all <%= client.display_name %> SVN Repositories]
+ * [<%= svn_url %>/<%= client.path %>/<%= project.path %> Browse the <%= project.display_name %> repository]
+
+=== How to check this project out ===
+
+Make sure you have subversion client installed, then you can check the project out using:
+
+{{{
+svn checkout http://<%= server_hostname %><%= svn_url %>/<%= client.path %>/<%= project.path %>/trunk <%= project.path %>
+}}}
+
+=== How to import existing files into this repository ===
+
+The following example will import all files in the current directory into the repository.
+
+{{{
+svn import . http://<%= server_hostname %><%= svn_url %>/<%= client.path %>/<%= project.path %>/trunk -m "initial import"
+}}}
+
+=== Using SVN ===
+
+ * [http://tortoisesvn.tigris.org/ For Windows use Tortoise SVN]
+ * [http://scplugin.tigris.org/ For OS X use SCPlugin]
+ * [http://theappleblog.com/2009/02/23/12-subversion-apps-for-os-x/ There's loads more if you don't like these]
+
+= About Trac =
+
+Trac is a '''minimalistic''' approach to '''web-based''' management of
+'''software projects'''. Its goal is to simplify effective tracking and handling of software issues, enhancements and overall progress.
+
+All aspects of Trac have been designed with the single goal to 
+'''help developers write great software''' while '''staying out of the way'''
+and imposing as little as possible on a team's established process and
+culture.
+
+As all Wiki pages, this page is editable, this means that you can
+modify the contents of this page simply by using your
+web-browser. Simply click on the "Edit this page" link at the bottom
+of the page. WikiFormatting will give you a detailed description of
+available Wiki formatting commands.
+
+TracGuide is a good place to start.
+
+Enjoy! [[BR]]
+''The Saint Team''
+
+== Starting Points ==
+
+ * TracGuide --  Built-in Documentation
+ * [http://trac.edgewall.org/wiki/TracFaq Trac FAQ] -- Frequently Asked Questions
+ * TracSupport --  Trac Support
+
+For a complete list of local wiki pages, see TitleIndex.

@@ -1,0 +1,29 @@
+<location /<%= client.path %>>
+
+	AuthName "Restricted Area for <%= client.display_name %>"
+	AuthType Basic
+	AuthUserFile <%= auth_dir %>/htpasswds
+	Require valid-user
+	AuthBasicProvider file
+	AuthGroupFile <%= auth_dir %>/htgroups
+	Require group internal <%= client.path %>
+
+	SetHandler mod_python
+	PythonInterpreter main_interpreter
+	PythonHandler trac.web.modpython_frontend
+	PythonOption TracEnvParentDir <%= trac_dir %>/<%= client.path %>
+	PythonOption TracUriRoot /<%= client.path %>
+	PythonOption TracEnvIndexTemplate <%= trac_dir %>/<%= client.path %>/.theme/index/index.html
+	PythonOption PYTHON_EGG_CACHE <%= tmp_dir %>
+
+</location>
+
+<location <%= svn_url %>/<%= client.path %>>
+
+	DAV svn
+	SVNParentPath <%= svn_dir %>/<%= client.path %>
+	SVNListParentPath On
+	SVNAutoversioning On
+	SVNReposName "<%= server_name %> for <%= client.display_name %>"
+
+</location>

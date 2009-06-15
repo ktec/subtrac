@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'commander'
+
+$:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+require 'subtrac'
+
+program :name, 'subtrac'
+program :version, Subtrac::VERSION
+program :description, 'subtrac will install and manage a collection of subversion respositories and associated trac sites'
+ 
+command :install do |c|
+  c.syntax = 'subtrac install [options]'
+  c.summary = 'Install the base configuration for apache.'
+  c.description = 'Installation of default files required to host multipe development projects.'
+  c.example 'subtrac install --clean --default', 'install a clean installation with the default trac and svn setup.'
+  c.option '-c','--clean', 'Performs a clean install'
+  c.option '-d','--defaults', 'Accept all defaults'
+  c.when_called Subtrac::Commands::Install
+end
+
+command :create do |c|
+  c.syntax = 'subtrac create_project [options]'
+  c.summary = 'Creates a new Subversion repository and associated Trac site for to specified project and client.'
+  c.description = 'Creates a new Subversion repository and associated Trac site for the specified project and client.'
+  c.example 'subtrac create -p new_project -c subtrac', 'Creates a new project called "new_project" in the "subtrac" client group.'
+  c.option '-p','--project PROJECT', 'Name of project to create.'
+  c.option '-c','--client CLIENT', 'Name of client to create the project for.'
+  c.option '-t','--template TEMPLATE', 'Name of template to use when creating the project.'
+  c.when_called Subtrac::Commands::Create
+end
+
+command :create_template do |c|
+  c.syntax = 'subtrac create_template [options]'
+  c.summary = 'Creates a new Subversion repository and associated Trac site for to specified project template.'
+  c.description = 'Creates a new Subversion repository and associated Trac site for the specified project template and client.'
+  c.example 'subtrac create as3_template', 'Creates a new project template called "as3_template".'
+  c.option '-t','--template TEMPLATE', 'Name of project template to create.'
+  c.when_called Subtrac::Commands::CreateTemplate
+end
+
+command :delete do |c|
+  c.syntax = 'subtrac delete [options]'
+  c.summary = 'Deletes an existing project'
+  c.description = 'Deletes an existing project'
+  c.example 'subtrac delete --client subtrac --project subtrac', 'deletes a project called subtrac for a client called subtrac.'
+  c.option '--project', 'Name of project to delete'
+  c.option '--client', 'Name of client the project was for'
+  c.when_called Subtrac::Commands::Delete
+end
+
+command :trac_admin do |c|
+  c.syntax = 'subtrac trac_admin [command] [options]'
+  c.summary = 'Runs the trac command on all trac instances.'
+  c.description = 'Runs the trac command on all trac instances.'
+  c.example 'subtrac trac_admin permission add subtrac TRAC_ADMIN', 'Adds the user "subtrac" to all trac instances on the server.'
+  c.when_called Subtrac::Commands::TracAdmin
+end
+
+
