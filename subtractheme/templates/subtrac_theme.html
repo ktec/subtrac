@@ -1,0 +1,116 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/"
+      py:strip="">
+  <?python from genshi.builder import tag ?>
+
+  <div py:def="navigation(category)" id="${category}" class="nav">
+    <ul py:if="chrome.nav[category]">
+      <li py:for="idx, item in  enumerate(chrome.nav[category])"
+          class="${classes(first_last(idx, chrome.nav[category]), active=item.active)}">${item.label}</li>
+    </ul>
+  </div>
+
+  <body py:match="body">
+    <div id="center-content" class="box">
+      <!--! Header -->
+      <div id="header">
+
+          <!--! Logotyp -->
+          <div id="logo" py:choose="">
+            <a py:when="chrome.logo.src" href="${chrome.logo.link}"><img
+              src="${chrome.logo.src}" alt="${chrome.logo.alt}" /></a>
+            <h1 py:otherwise=""><a href="${chrome.logo.link}">${project.name}</a></h1>
+          </div>
+          <hr class="noscreen" />          
+
+          <!--! Quick links -->
+          <div class="noscreen noprint">
+              <p><em>Quick links: <a href="#main">content</a>, <a href="#mainnav">navigation</a>, <a href="#theme-search">search</a>.</em></p>
+              <hr />
+          </div>
+
+          <!--! Search -->
+          <div id="theme-search" class="noprint" py:if="'SEARCH_VIEW' in perm">
+              <form action="${href.search()}" method="get">
+                  <fieldset><legend>Search</legend>
+                      <!--label><span class="noscreen">Find:</span>
+                      <span id="search-input-out"><input type="text" name="q" id="search-input" size="30" accesskey="f" /></span></label-->
+<input type="search" name="q" id="search-input" accesskey="s" results="0" placeholder="Search" autosave=""/>
+                      <input type="hidden" name="wiki" value="on" />
+                      <input type="hidden" name="changeset" value="on" />
+                      <input type="hidden" name="ticket" value="on" />
+                      <!--input type="image" src="${href.chrome('theme', 'img', 'search_submit.gif')}" id="search-submit" value="OK" /-->
+                  </fieldset>
+              </form>
+          </div> <!--! /search -->
+
+      </div> <!--! /header -->
+
+       <!-- Page (2 columns) -->
+       <div id="page" class="box">
+		<!--! Main menu (tabs) -->
+		<div id="theme-mainnav" class="noprint" py:with="category = 'mainnav'">
+
+		       <h3 class="noscreen">Navigation</h3>
+		       <ul py:if="chrome.nav[category]">
+		           <li py:for="idx, item in  enumerate(chrome.nav[category])"
+		               class="${classes(first_last(idx, chrome.nav[category]), active=item.active)}">${item.label}</li>
+		       </ul>
+
+		   <hr class="noscreen" />
+		</div> <!--! /tabs -->
+         <div id="page-in" class="box">
+           <div id="strip" class="box noprint">
+             
+             <div id="ctxtnav" class="nav">
+                 <ul>
+                   <li py:for="i, elm in enumerate(chrome.ctxtnav)" class="${i == 0 and 'first ' or None}${i+1 == len(chrome.ctxtnav) and 'last' or None}">$elm</li>
+                 </ul>
+             </div>
+            ${navigation('metanav')}
+
+            <div id="warning" py:if="req and req.warnings" class="system-message">
+              <py:choose test="len(req.warnings)">
+                <py:when test="1">
+                  <strong>Warning:</strong> ${req.warnings[0]}
+                </py:when>
+                <py:otherwise>
+                  <strong>Warnings:</strong>
+                  <ul><li py:for="w in req.warnings">$w</li></ul>
+                </py:otherwise>
+              </py:choose>
+            </div>
+            
+          </div> <!--! /strip -->
+
+          <div id="main">
+            ${select('*[@id!="ctxtnav"]|text()')}
+          </div> <!--! /main -->
+        </div> <!--! /page-in -->
+      </div> <!--! /page -->
+
+      <div id="footer" xml:lang="en">
+        <div id="top" class="noprint"><p><span class="noscreen">Back on top</span> <a href="#header" title="Back on top ^">^<span></span></a></p></div>
+        <hr class="noscreen" />
+        <a id="tracpowered" href="http://trac.edgewall.org/"><img
+          src="${href.chrome('common/trac_logo_mini.png')}" height="30"
+          width="107" alt="Trac Powered"/></a>
+        <p class="left">
+          Powered by <a href="${href.about()}"><strong>Trac ${trac.version}</strong></a><br />
+          By <a href="http://www.edgewall.org/">Edgewall Software</a>.
+        </p>
+        <p id="createdby">
+          Original theme created<br />by <a href="http://www.nuvio.cz">Nuvio | Webdesign</a> <!-- DON´T REMOVE, PLEASE! -->
+        </p>
+        <p class="right">${chrome.footer}</p>
+      </div>
+    </div>
+  </body>
+
+  <xi:include href="site.html"><xi:fallback /></xi:include>
+
+</html>
