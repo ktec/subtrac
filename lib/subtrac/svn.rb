@@ -27,7 +27,7 @@ module Subtrac
   
         # TODO: Need to handle this exception...
         if (File.directory? project.svn_dir) then
-          raise StandardError, "A project called #{project.display_name} already exists in the #{client.display_name} repository. Please delete it or choose an alternate project name and run this script again."
+          raise StandardError, "A project called #{project.display_name} already exists in the #{project.client.display_name} repository. Please delete it or choose an alternate project name and run this script again."
         end
               
         # create a new subversion repository
