@@ -13,22 +13,22 @@ development: &non_production_settings
     :default_project: "Public"
 
     :apache_conf_dir: /etc/apache2/sites-available
-    
+
     :ldap:
         :enable: false
-        :host: 
-        :port: 
-        :basedn: 
-        :user_rdn: 
-        :group_rdn: 
-        :store_bind: 
-        :group_bind: 
-        :bind_dn: 
-        :bind_passwd: 
+        :host:
+        :port:
+        :basedn:
+        :user_rdn:
+        :group_rdn:
+        :store_bind:
+        :group_bind:
+        :bind_dn:
+        :bind_passwd:
 
     :smtp:
         :enable: true
-        :always_bcc: 
+        :always_bcc:
         :always_cc:
         :default_domain:
         :from: trac@dev.saintdigital.co.uk
@@ -61,8 +61,7 @@ development: &non_production_settings
 
 test:
     <<: *non_production_settings
-    
+
 production:
     <<: *non_production_settings
-    
-    
+

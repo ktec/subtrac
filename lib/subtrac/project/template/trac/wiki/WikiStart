@@ -5,8 +5,8 @@ This is the home of development for <%= client.display_name %>. This page is edi
 
 == Starting Points ==
 
- * [<%= svn_url %>/<%= client.path %> Browse all <%= client.display_name %> SVN Repositories]
- * [<%= svn_url %>/<%= client.path %>/<%= project.path %> Browse the <%= project.display_name %> repository]
+ * [http://<%= server_hostname %><%= svn_url %>/<%= client.path %> Browse all <%= client.display_name %> SVN Repositories]
+ * [http://<%= server_hostname %><%= svn_url %>/<%= client.path %>/<%= project.path %> Browse the <%= project.display_name %> repository]
 
 === How to check this project out ===
 
@@ -35,7 +35,7 @@ svn import . http://<%= server_hostname %><%= svn_url %>/<%= client.path %>/<%= 
 Trac is a '''minimalistic''' approach to '''web-based''' management of
 '''software projects'''. Its goal is to simplify effective tracking and handling of software issues, enhancements and overall progress.
 
-All aspects of Trac have been designed with the single goal to 
+All aspects of Trac have been designed with the single goal to
 '''help developers write great software''' while '''staying out of the way'''
 and imposing as little as possible on a team's established process and
 culture.
@@ -58,3 +58,4 @@ Enjoy! [[BR]]
  * TracSupport --  Trac Support
 
 For a complete list of local wiki pages, see TitleIndex.
+
